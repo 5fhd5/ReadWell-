@@ -34,6 +34,7 @@ internal fun runApplication(
         stderr.println("Try 'readwell --help' for usage.")
         2
     }
+    @Suppress("SpreadOperator") // Picocli exposes its public execution API as a Java vararg.
     return try {
         commandLine.execute(*args)
     } catch (_: ParameterException) {

@@ -44,7 +44,7 @@ object TextFormat {
     fun statistics(statistics: LibraryStatistics): String = buildString {
         appendLine("Books:       ${statistics.totalBooks}")
         ReadingStatus.entries.forEach { status ->
-            appendLine("${status.name.padEnd(12)} ${statistics.byStatus[status] ?: 0}")
+            appendLine("${status.name.padEnd(STATUS_COLUMN_WIDTH)} ${statistics.byStatus[status] ?: 0}")
         }
         appendLine("Pages read:  ${statistics.totalPagesRead}")
         appendLine("Avg rating:  ${statistics.averageRating?.format(2) ?: "-"}")
@@ -58,13 +58,19 @@ object TextFormat {
     private fun bookRow(book: Book): String {
         val id = book.id.take(SHORT_ID_LENGTH)
         val progress = "${book.progressPercent}%"
-        return "${id.padEnd(10)}${book.priority.name.padEnd(10)}${book.status.name.padEnd(10)}${
-            progress.padEnd(10)
+        return "${id.padEnd(ID_COLUMN_WIDTH)}${book.priority.name.padEnd(PRIORITY_COLUMN_WIDTH)}${
+            book.status.name.padEnd(STATUS_COLUMN_WIDTH)
+        }${
+            progress.padEnd(PROGRESS_COLUMN_WIDTH)
         }${book.title} - ${book.author}"
     }
 
     private fun Double.format(decimals: Int): String = "%.${decimals}f".format(this)
 
     private const val SHORT_ID_LENGTH = 8
+    private const val ID_COLUMN_WIDTH = 10
+    private const val PRIORITY_COLUMN_WIDTH = 10
+    private const val STATUS_COLUMN_WIDTH = 12
+    private const val PROGRESS_COLUMN_WIDTH = 10
 }
 

@@ -19,29 +19,13 @@ object BookValidation {
 
     fun normalizeTitle(raw: String): String {
         val title = normalizeText(raw)
-        if (title.isEmpty()) {
-            throw ValidationException("Title cannot be blank.")
-        }
-        if (title.length > MAX_TITLE_LENGTH) {
-            throw ValidationException("Title must be at most $MAX_TITLE_LENGTH characters.")
-        }
-        if (controlCharacter.containsMatchIn(title)) {
-            throw ValidationException("Title cannot contain control characters.")
-        }
+        validateText(title, "Title", MAX_TITLE_LENGTH)
         return title
     }
 
     fun normalizeAuthor(raw: String): String {
         val author = normalizeText(raw)
-        if (author.isEmpty()) {
-            throw ValidationException("Author cannot be blank.")
-        }
-        if (author.length > MAX_AUTHOR_LENGTH) {
-            throw ValidationException("Author must be at most $MAX_AUTHOR_LENGTH characters.")
-        }
-        if (controlCharacter.containsMatchIn(author)) {
-            throw ValidationException("Author cannot contain control characters.")
-        }
+        validateText(author, "Author", MAX_AUTHOR_LENGTH)
         return author
     }
 
@@ -93,5 +77,17 @@ object BookValidation {
     }
 
     private fun normalizeText(raw: String): String = raw.trim().replace(whitespace, " ")
+
+    private fun validateText(value: String, label: String, maximumLength: Int) {
+        val problem = when {
+            value.isEmpty() -> "$label cannot be blank."
+            value.length > maximumLength -> "$label must be at most $maximumLength characters."
+            controlCharacter.containsMatchIn(value) -> "$label cannot contain control characters."
+            else -> null
+        }
+        if (problem != null) {
+            throw ValidationException(problem)
+        }
+    }
 }
 
