@@ -1,0 +1,20 @@
+complexity:
+  LongMethod:
+    threshold: 80
+  LongParameterList:
+    functionThreshold: 12
+    constructorThreshold: 12
+  TooManyFunctions:
+    thresholdInFiles: 25
+    thresholdInClasses: 25
+  NestedBlockDepth:
+    threshold: 5
+
+style:
+  MagicNumber:
+    ignoreNumbers: ["-1", "0", "1", "2", "3", "4", "5", "8", "200"]
+  MaxLineLength:
+    maxLineLength: 140
+  ReturnCount:
+    max: 5
+

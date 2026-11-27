@@ -1,0 +1,12 @@
+.gradle/
+.idea/
+build/
+out/
+*.iml
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+library.json
+library.json.tmp
+
