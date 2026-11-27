@@ -50,6 +50,7 @@ jacoco {
 
 tasks.test {
     useJUnitPlatform()
+    systemProperty("java.io.tmpdir", layout.buildDirectory.get().asFile.absolutePath)
     finalizedBy(tasks.jacocoTestReport)
 }
 
