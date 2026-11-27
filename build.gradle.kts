@@ -11,10 +11,6 @@ plugins {
 group = "io.github.readwell"
 version = "1.0.0"
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     implementation("info.picocli:picocli:4.7.7")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
@@ -54,6 +50,7 @@ jacoco {
 
 tasks.test {
     useJUnitPlatform()
+    systemProperty("java.io.tmpdir", layout.buildDirectory.get().asFile.absolutePath)
     finalizedBy(tasks.jacocoTestReport)
 }
 
