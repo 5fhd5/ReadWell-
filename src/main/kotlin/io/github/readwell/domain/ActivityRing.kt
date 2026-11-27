@@ -14,7 +14,7 @@ class ActivityRing(
 
     init {
         require(capacity > 0) { "Activity capacity must be positive." }
-        initial.takeLast(capacity).forEach(::add)
+        initial.toList().takeLast(capacity).forEach(::add)
     }
 
     fun add(activity: Activity) {
